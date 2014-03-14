@@ -12,6 +12,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -63,15 +64,13 @@ public class ConverterFrame extends JFrame {
       
       @Override
       public void keyReleased(KeyEvent arg0) {
-        Graphics graphics = imagePanel.getGraphics();
-        graphics.clearRect(0, 0, getSize().width, getSize().height);
-        graphics.drawImage(getImage(), 0, 8, null);
       }
       
       @Override
       public void keyPressed(KeyEvent arg0) {
-        // TODO Auto-generated method stub
-        
+        Graphics graphics = imagePanel.getGraphics();
+        graphics.clearRect(0, 0, getSize().width, getSize().height);
+        graphics.drawImage(getImage(), 0, 8, null);
       }
     });
     
@@ -82,6 +81,7 @@ public class ConverterFrame extends JFrame {
       public void actionPerformed(ActionEvent arg0) {
         // save image
         System.out.println("save image");
+//        ImageIO.write(getImage(), "PNG", File file);
       }
     });
   }
