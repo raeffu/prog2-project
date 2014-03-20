@@ -1,3 +1,4 @@
 bin/
 .settings/
 *.png
+src/ch/bfh/email2png/
