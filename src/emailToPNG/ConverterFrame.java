@@ -82,7 +82,6 @@ public class ConverterFrame extends JFrame {
       @Override
       public void actionPerformed(ActionEvent arg0) {
         // save image
-        System.out.println("save image");
 
         JFileChooser fileChooser = new JFileChooser(System
             .getProperty("user.dir"));
