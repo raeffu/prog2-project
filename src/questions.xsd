@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.example.org/questions/" targetNamespace="http://www.example.org/questions/">
+    <complexType name="QuestionsType">
+    	<sequence>
+    		<element name="question" type="tns:QuestionType" maxOccurs="unbounded" minOccurs="1"></element>
+    	</sequence>
+    </complexType>
+    
+    <element name="questions" type="tns:QuestionsType"></element>
+
+    <complexType name="QuestionType">
+    	<sequence>
+    		<element name="text" type="string"></element>
+    		<element name="answers" type="tns:AnswersType" maxOccurs="1" minOccurs="1"></element>
+    	</sequence>
+    </complexType>
+
+
+
+    <complexType name="AnswersType">
+    	<sequence>
+    		<element name="answer" type="string" maxOccurs="unbounded" minOccurs="1"></element>
+    	</sequence>
+    </complexType>
+
+
+
+
+</schema>
