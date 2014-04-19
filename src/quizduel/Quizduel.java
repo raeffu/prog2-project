@@ -113,7 +113,17 @@ public class Quizduel {
   }
 
   public void continueDuel() {
-
+    print("Enter duel number:");
+    String duelNr = readInput();
+    
+    Duel duel = getDuel(duelNr);
+    if(duel == null){
+      print("Duel not found!");
+      return;
+    }
+    
+    //TODO: not yet working
+    duel.playRound(_currentPlayer);
   }
 
   public void displayDuels() {
@@ -132,6 +142,17 @@ public class Quizduel {
       print("Not logged in");
     }
     return ok;
+  }
+  
+  public Duel getDuel(String duelNr){
+    int id = duelNr.matches("\\d+") ? Integer.parseInt(duelNr) : -1;
+      
+    for(Duel duel : _duels){
+      if (duel.getId() == id) {
+        return duel;
+      }
+    }
+    return null;
   }
 
   public ArrayList<Question> getDuelQuestions(){
