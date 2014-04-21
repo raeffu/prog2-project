@@ -4,23 +4,58 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author raeffu
+ * 
+ * Class representing a duel.
+ * 
+ * @member _player1
+ * @member _player2
+ * @member _currentPlayer
+ *         Player who is playing
+ * @member _finished
+ *         true if Quizduel.ROUND reached
+ * @member _questionOffset
+ *         Offset for looping over _duelQuestions. Loop over next questions
+ * @member _uid
+ *         static. Unique number for duel ID
+ * @member _id
+ *         ID of duel
+ * @member _scores
+ *         HashMap with player's name and current score
+ * @member _duelQuestions
+ *         Set of questions for this duel
+ * @member _round
+ *         Counter for rounds
+ * 
+ */
 public class Duel {
 
   private Player _player1;
   private Player _player2;
   private Player _currentPlayer;
+  private boolean _finished;
+  private int _questionOffset;
   private static int _uid = 0;
   private int _id;
 
-  // Player and Score
+  // Playername and his score
   private Map<String, Integer> _scores = new HashMap<String, Integer>();
 
   private ArrayList<Question> _duelQuestions;
 
   private int _round; // round 0 -5
-  // private int _scorePlayer1;
-  // private int _scorePlayer2;
 
+  /**
+   * Constructor: Create new duel
+   * 
+   * @param player1
+   *        Player who started duel
+   * @param player2
+   *        opponent
+   * @param questions
+   *        questions selected for this duel, see Quizduel.getDuelQuestions
+   */
   public Duel(Player player1, Player player2, ArrayList<Question> questions) {
     _player1 = player1;
     _player2 = player2;
@@ -28,24 +63,46 @@ public class Duel {
     _scores.put(player2.getName(), 0);
     _duelQuestions = questions;
     _round = 1;
-    // _scorePlayer1 = 0;
-    // _scorePlayer2 = 0;
+    _finished = false;
+    _questionOffset = 0;
 
     // set duel number
     _uid += 1;
     _id = _uid;
   }
 
-  //TODO: add state, is round finished, have all players played?
-  public void playRound(Player currentPlayer) {
-    _currentPlayer = currentPlayer;
+  /**
+   * Play a round in a duel.
+   * 
+   * @param newPlayer
+   *        Player who wants to play a duel
+   */
+  public void playRound(Player newPlayer) {
+
+    if (_finished) {
+      Quizduel.print("Duel already finished!");
+      return;
+    }
+
+    if (newPlayer.equals(_currentPlayer)) {
+      Quizduel.print("Sorry, Player " + getNextPlayer(newPlayer) + " is up!");
+      return;
+    }
+    else if (newPlayer.equals(_player1) || newPlayer.equals(_player2)) {
+      _currentPlayer = newPlayer;
+    }
+    else {
+      Quizduel.print("Sorry " + newPlayer.getName()
+          + ", this is a game between " + _player1.getName() + " and "
+          + _player2.getName());
+      return;
+    }
 
     Quizduel.print("Playing round " + _round);
 
     boolean correct = false;
-    int start = Quizduel.QUEST * _round - 1;
-
-    for (int i = start; i < start + Quizduel.QUEST; i++) {
+    
+    for (int i = _questionOffset; i < _questionOffset + Quizduel.QUEST; i++) {
       correct = false;
 
       Question currentQuestion = _duelQuestions.get(i);
@@ -57,9 +114,6 @@ public class Duel {
       String answerString = Quizduel.readInput();
       if (answerString.matches("\\d+")) {
         int answer = Integer.parseInt(answerString);
-
-        // System.out.println("answer: "+answer);
-        // System.out.println("correctAnswer: "+correctAnswer);
 
         if (answer == correctAnswer) {
           correct = true;
@@ -77,31 +131,118 @@ public class Duel {
     }
 
     Quizduel.print("Your current score: " + getScore(_currentPlayer));
+    updateRound();
+
+    if (_round > Quizduel.ROUNDS) {
+      Quizduel.print(getSummary());
+      _finished = true;
+      return;
+    }
   }
 
+  /**
+   * Update score of Player player
+   * 
+   * @param player
+   */
   public void updateScore(Player player) {
     int newScore = _scores.get(player.getName()) + 1;
     _scores.put(player.getName(), newScore);
   }
 
+  /**
+   * Return score of a player
+   * 
+   * @param player
+   * @return score
+   *         score of player
+   */
   public int getScore(Player player) {
     return _scores.get(player.getName());
   }
 
-  public String getNextPlayer(Player _currentPlayer) {
-    return _currentPlayer.equals(_player1) ? 
-        _player2.getName() : _player1.getName();
+  /**
+   * Get player whos up next
+   * 
+   * @param _currentPlayer
+   * @return nextPlayer
+   */
+  public Player getNextPlayer(Player _currentPlayer) {
+    return _currentPlayer.equals(_player1) ? _player2 : _player1;
   }
-  
-  public int getId(){
+
+  /**
+   * Evaluate winner.
+   * 
+   * @return winner
+   *         Name of the winner
+   */
+  public String getWinner() {
+    if (_scores.get(_player1.getName()) > _scores.get(_player2.getName())) {
+      return "Winner: " + _player1.getName();
+    }
+    else if (_scores.get(_player1) < _scores.get(_player2)) {
+      return "Winner: " + _player2.getName();
+    }
+    else {
+      return "DRAW";
+    }
+  }
+
+  /**
+   * 
+   * Update round counter and offset for questions selection
+   * 
+   * @var _round
+   *      current round
+   * @var _questionOffset
+   *      begin index of questions for round (_duelQuestions)
+   * 
+   */
+  public void updateRound() {
+    if (_currentPlayer.equals(_player2)) {
+      _round += 1;
+      _questionOffset += Quizduel.QUEST;
+    }
+    return;
+  }
+
+  /**
+   * Return ID of a duel
+   * 
+   * @return id
+   *         ID of duel
+   */
+  public int getId() {
     return _id;
   }
 
+  /**
+   * Return summary for a duel.
+   * 
+   * @return duelSummary
+   *         summary of a finished duel
+   */
+  public String getSummary() {
+    String result = "[Duel " + _id + "]" + ": " + _player1.getName() + " vs. "
+        + _player2.getName() + " | " + getScore(_player1) + " - "
+        + getScore(_player2) + " | " + "FINISHED | " + getWinner();
+    return result;
+  }
+
+  /**
+   * 
+   *  Print status of duel
+   * 
+   */
+  @Override
   public String toString() {
+    if(_finished) return getSummary();
+    
     String result = "[Duel " + _id + "]" + ": " + _player1.getName() + " vs. "
         + _player2.getName() + " | " + getScore(_player1) + " - "
         + getScore(_player2) + " | " + "Round " + _round + " | "
-        + getNextPlayer(_currentPlayer);
+        + getNextPlayer(_currentPlayer).getName();
     return result;
   }
 }

@@ -1,5 +1,16 @@
 package quizduel;
 
+/**
+ * @author raeffu
+ * 
+ * Class representing a answer.
+ * 
+ * @member _text
+ *         Answer text
+ * @member _isCorrect
+ *         true if correct answer
+ * 
+ */
 public class Answer {
   
   private String _text;

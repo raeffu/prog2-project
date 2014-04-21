@@ -1,5 +1,14 @@
 package quizduel;
 
+/**
+ * @author raeffu
+ * 
+ * Class representing a Player.
+ * 
+ * @member _name
+ *         Name of player
+ * 
+ */
 public class Player {
   
   private String _name;
@@ -12,6 +21,7 @@ public class Player {
     return _name;
   }
   
+  @Override
   public String toString(){
     return getName();
   }

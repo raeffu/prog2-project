@@ -16,22 +16,51 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+/**
+ * @author raeffu
+ * 
+ * Console simulation of quizduel app
+ * 
+ * @member _questions
+ *         List of all avaiable questions
+ * @member _currentUser
+ *         Person currently logged in
+ * @member _players
+ *         List of avaiable players
+ * @member _duels
+ *         List of duels
+ * @member ROUNDS
+ *         Number of rounds to play
+ * @member QUEST
+ *         Number of questions per round
+ * 
+ */
 public class Quizduel {
 
   private List<Question> _questions = new ArrayList<Question>();
-  private Player _currentPlayer;
+  private Player _currentUser;
   private List<Player> _players = new ArrayList<Player>();
   private List<Duel> _duels = new ArrayList<Duel>();
   
   public static final int ROUNDS = 6;
   public static final int QUEST = 3;
 
+  /**
+   * 
+   * Constructor
+   * 
+   */
   public Quizduel() {
     loadQuestions();
     generatePlayers();
     quizLoop();
   }
 
+  /**
+   * 
+   * Game loop, print menu and fires actions
+   * 
+   */
   private void quizLoop() {
 
     boolean playing = true;
@@ -62,9 +91,17 @@ public class Quizduel {
       else if ("Q".equalsIgnoreCase(input)) {
         playing = false;
       }
+      else{
+        print("Wrong input!");
+      }
     }
   }
 
+  /**
+   * 
+   * Create Player and set _currentUser
+   * 
+   */
   public void login() {
     print("Username: ");
     String name = readInput();
@@ -72,21 +109,26 @@ public class Quizduel {
     for (Player player : _players) {
       if (player.getName().equals(name)) {
         print("Logged in as existing:" + name);
-        _currentPlayer = player;
+        _currentUser = player;
         return;
       }
     }
 
     print("Logged in as new:" + name);
-    _currentPlayer = new Player(name);
-    _players.add(_currentPlayer);
+    _currentUser = new Player(name);
+    _players.add(_currentUser);
   }
 
+  /**
+   * 
+   * Construct new duel and play first round
+   * 
+   */
   public void newDuel() {
 
     print("Available opponents: ");
     for (Player player : _players) {
-      if (player != _currentPlayer)
+      if (player != _currentUser)
         print(player.getName());
     }
 
@@ -107,11 +149,16 @@ public class Quizduel {
     ArrayList<Question> duelQuestions = getDuelQuestions();
     if(duelQuestions == null) return;
     
-    Duel duel = new Duel(_currentPlayer, opponent, duelQuestions);
+    Duel duel = new Duel(_currentUser, opponent, duelQuestions);
     _duels.add(duel);
-    duel.playRound(_currentPlayer);
+    duel.playRound(_currentUser);
   }
 
+  /**
+   * 
+   * Find duel and continue playing
+   * 
+   */
   public void continueDuel() {
     print("Enter duel number:");
     String duelNr = readInput();
@@ -122,28 +169,52 @@ public class Quizduel {
       return;
     }
     
-    //TODO: not yet working
-    duel.playRound(_currentPlayer);
+    duel.playRound(_currentUser);
   }
 
+  /**
+   * 
+   * Print out duels
+   * 
+   */
   public void displayDuels() {
     for (Duel duel : _duels) {
       print(duel.toString());
     }
   }
 
+  /**
+   * 
+   * Log out current user
+   * 
+   */
   public void logout() {
-    _currentPlayer = null;
+    _currentUser = null;
   }
 
+  /**
+   * See if someone is logged in
+   * 
+   * @return ok
+   *         return true if logged in
+   * 
+   */
   public boolean checkLogin() {
-    boolean ok = _currentPlayer != null;
+    boolean ok = _currentUser != null;
     if (!ok) {
       print("Not logged in");
     }
     return ok;
   }
   
+  /**
+   * Find duel with ID
+   * 
+   * @param duelNr
+   *        ID of a duel
+   * @return duel
+   *         selected duel
+   */
   public Duel getDuel(String duelNr){
     int id = duelNr.matches("\\d+") ? Integer.parseInt(duelNr) : -1;
       
@@ -155,6 +226,12 @@ public class Quizduel {
     return null;
   }
 
+  /**
+   * Get set of duel questions
+   * 
+   * @return duelQuestions
+   *         Selection of questions in random order
+   */
   public ArrayList<Question> getDuelQuestions(){
     ArrayList<Question> duelQuestions = new ArrayList<Question>();
     
@@ -174,25 +251,51 @@ public class Quizduel {
     return duelQuestions;
   }
   
+  /**
+   * Start program
+   * 
+   * @param args
+   */
   public static void main(String[] args) {
     new Quizduel();
   }
 
+  /**
+   * Print something to the UI (console)
+   * 
+   * @param string
+   */
   public static void print(String string) {
     System.out.println(string);
   }
 
+  /**
+   * Read from console
+   * 
+   * @return input
+   */
   public static String readInput() {
     Scanner in = new Scanner(System.in);
     return in.nextLine();
   }
 
+  /**
+   * 
+   * Generate some Players
+   * 
+   */
   public void generatePlayers() {
     _players.add(new Player("Hans"));
     _players.add(new Player("Peter"));
     _players.add(new Player("Urs"));
   }
 
+  /**
+   * 
+   * Load questions from XML file.
+   * Answers are randomized here.
+   * 
+   */
   private void loadQuestions() {
     File xml = new File("questions.xml");
     DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -223,11 +326,6 @@ public class Quizduel {
 
           answers.add(new Answer(answerElement.getTextContent(), isCorrect));
         }
-
-        // System.out.println("Question " + (i + 1));
-        // Question question = new Question(textElement.getTextContent(),
-        // answers);
-        // System.out.println(question);
         
         // Randomize order of answers
         Collections.shuffle(answers);
