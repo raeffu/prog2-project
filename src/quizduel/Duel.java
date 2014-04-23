@@ -29,7 +29,7 @@ import java.util.Map;
  *         Counter for rounds
  * 
  */
-public class Duel {
+public class Duel extends Printable {
 
   private Player _player1;
   private Player _player2;
@@ -80,25 +80,25 @@ public class Duel {
   public void playRound(Player newPlayer) {
 
     if (_finished) {
-      Quizduel.print("Duel already finished!");
+      print("Duel already finished!");
       return;
     }
 
     if (newPlayer.equals(_currentPlayer)) {
-      Quizduel.print("Sorry, Player " + getNextPlayer(newPlayer) + " is up!");
+      print("Sorry, Player " + getNextPlayer(newPlayer) + " is up!");
       return;
     }
     else if (newPlayer.equals(_player1) || newPlayer.equals(_player2)) {
       _currentPlayer = newPlayer;
     }
     else {
-      Quizduel.print("Sorry " + newPlayer.getName()
+      print("Sorry " + newPlayer.getName()
           + ", this is a game between " + _player1.getName() + " and "
           + _player2.getName());
       return;
     }
 
-    Quizduel.print("Playing round " + _round);
+    print("Playing round " + _round);
 
     boolean correct = false;
     
@@ -108,10 +108,10 @@ public class Duel {
       Question currentQuestion = _duelQuestions.get(i);
       int correctAnswer = currentQuestion.getRightAnswerIndex();
 
-      Quizduel.print(currentQuestion.toString());
-      Quizduel.print("Answer: ");
+      print(currentQuestion);
+      print("Answer: ");
 
-      String answerString = Quizduel.readInput();
+      String answerString = readInput();
       if (answerString.matches("\\d+")) {
         int answer = Integer.parseInt(answerString);
 
@@ -121,20 +121,20 @@ public class Duel {
       }
 
       if (correct) {
-        Quizduel.print("Correct Answer !!");
+        print("Correct Answer !!");
         updateScore(_currentPlayer);
       }
       else {
-        Quizduel.print("Wrong !! The correct answer was " + correctAnswer);
+        print("Wrong !! The correct answer was " + correctAnswer);
       }
 
     }
 
-    Quizduel.print("Your current score: " + getScore(_currentPlayer));
+    print("Your current score: " + getScore(_currentPlayer));
     updateRound();
 
     if (_round > Quizduel.ROUNDS) {
-      Quizduel.print(getSummary());
+      print(getSummary());
       _finished = true;
       return;
     }
@@ -145,7 +145,7 @@ public class Duel {
    * 
    * @param player
    */
-  public void updateScore(Player player) {
+  private void updateScore(Player player) {
     int newScore = _scores.get(player.getName()) + 1;
     _scores.put(player.getName(), newScore);
   }
@@ -157,7 +157,7 @@ public class Duel {
    * @return score
    *         score of player
    */
-  public int getScore(Player player) {
+  private int getScore(Player player) {
     return _scores.get(player.getName());
   }
 
@@ -167,7 +167,7 @@ public class Duel {
    * @param _currentPlayer
    * @return nextPlayer
    */
-  public Player getNextPlayer(Player _currentPlayer) {
+  private Player getNextPlayer(Player _currentPlayer) {
     return _currentPlayer.equals(_player1) ? _player2 : _player1;
   }
 
@@ -177,7 +177,7 @@ public class Duel {
    * @return winner
    *         Name of the winner
    */
-  public String getWinner() {
+  private String getWinner() {
     if (_scores.get(_player1.getName()) > _scores.get(_player2.getName())) {
       return "Winner: " + _player1.getName();
     }
@@ -199,7 +199,7 @@ public class Duel {
    *      begin index of questions for round (_duelQuestions)
    * 
    */
-  public void updateRound() {
+  private void updateRound() {
     if (_currentPlayer.equals(_player2)) {
       _round += 1;
       _questionOffset += Quizduel.QUEST;
@@ -223,7 +223,7 @@ public class Duel {
    * @return duelSummary
    *         summary of a finished duel
    */
-  public String getSummary() {
+  private String getSummary() {
     String result = "[Duel " + _id + "]" + ": " + _player1.getName() + " vs. "
         + _player2.getName() + " | " + getScore(_player1) + " - "
         + getScore(_player2) + " | " + "FINISHED | " + getWinner();

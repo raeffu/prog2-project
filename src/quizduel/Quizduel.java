@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Scanner;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -35,7 +34,7 @@ import org.xml.sax.SAXException;
  *         Number of questions per round
  * 
  */
-public class Quizduel {
+public class Quizduel extends Printable {
 
   private List<Question> _questions = new ArrayList<Question>();
   private Player _currentUser;
@@ -66,6 +65,7 @@ public class Quizduel {
     boolean playing = true;
 
     while (playing) {
+      print("User: ["+_currentUser+"]");
       print("Log I)n, N)ew Duel, C)ontinue Duel, D)isplay Duels, Log O)ut, Q)uit");
 
       String input = readInput();
@@ -102,19 +102,19 @@ public class Quizduel {
    * Create Player and set _currentUser
    * 
    */
-  public void login() {
+  private void login() {
     print("Username: ");
     String name = readInput();
 
     for (Player player : _players) {
       if (player.getName().equals(name)) {
-        print("Logged in as existing:" + name);
+        print("Logged in as existing: " + name);
         _currentUser = player;
         return;
       }
     }
 
-    print("Logged in as new:" + name);
+    print("Logged in as new: " + name);
     _currentUser = new Player(name);
     _players.add(_currentUser);
   }
@@ -124,7 +124,7 @@ public class Quizduel {
    * Construct new duel and play first round
    * 
    */
-  public void newDuel() {
+  private void newDuel() {
 
     print("Available opponents: ");
     for (Player player : _players) {
@@ -159,7 +159,7 @@ public class Quizduel {
    * Find duel and continue playing
    * 
    */
-  public void continueDuel() {
+  private void continueDuel() {
     print("Enter duel number:");
     String duelNr = readInput();
     
@@ -177,9 +177,9 @@ public class Quizduel {
    * Print out duels
    * 
    */
-  public void displayDuels() {
+  private void displayDuels() {
     for (Duel duel : _duels) {
-      print(duel.toString());
+      print(duel);
     }
   }
 
@@ -188,7 +188,7 @@ public class Quizduel {
    * Log out current user
    * 
    */
-  public void logout() {
+  private void logout() {
     _currentUser = null;
   }
 
@@ -199,7 +199,7 @@ public class Quizduel {
    *         return true if logged in
    * 
    */
-  public boolean checkLogin() {
+  private boolean checkLogin() {
     boolean ok = _currentUser != null;
     if (!ok) {
       print("Not logged in");
@@ -215,7 +215,7 @@ public class Quizduel {
    * @return duel
    *         selected duel
    */
-  public Duel getDuel(String duelNr){
+  private Duel getDuel(String duelNr){
     int id = duelNr.matches("\\d+") ? Integer.parseInt(duelNr) : -1;
       
     for(Duel duel : _duels){
@@ -232,7 +232,7 @@ public class Quizduel {
    * @return duelQuestions
    *         Selection of questions in random order
    */
-  public ArrayList<Question> getDuelQuestions(){
+  private ArrayList<Question> getDuelQuestions(){
     ArrayList<Question> duelQuestions = new ArrayList<Question>();
     
     if (_questions.size() < ROUNDS*QUEST) {
@@ -261,30 +261,11 @@ public class Quizduel {
   }
 
   /**
-   * Print something to the UI (console)
-   * 
-   * @param string
-   */
-  public static void print(String string) {
-    System.out.println(string);
-  }
-
-  /**
-   * Read from console
-   * 
-   * @return input
-   */
-  public static String readInput() {
-    Scanner in = new Scanner(System.in);
-    return in.nextLine();
-  }
-
-  /**
    * 
    * Generate some Players
    * 
    */
-  public void generatePlayers() {
+  private void generatePlayers() {
     _players.add(new Player("Hans"));
     _players.add(new Player("Peter"));
     _players.add(new Player("Urs"));
