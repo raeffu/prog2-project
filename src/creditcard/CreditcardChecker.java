@@ -11,7 +11,7 @@ public class CreditcardChecker {
     loop();
   }
 
-  public static void loop() {
+  private static void loop() {
     boolean running = true;
 
     while (running) {
@@ -60,7 +60,7 @@ public class CreditcardChecker {
     return true;
   }
 
-  public static boolean validateCheckSum(int[] digits, int checkDigit) {
+  private static boolean validateCheckSum(int[] digits, int checkDigit) {
     int checksum = 0;
 
     for (int i = 0; i < digits.length; i++) {
@@ -81,7 +81,7 @@ public class CreditcardChecker {
     return checksum % 10 == 0;
   }
 
-  public static int digitSum(int digit) {
+  private static int digitSum(int digit) {
     if (digit > 9) {
       return digit - 9;
     }
@@ -89,7 +89,7 @@ public class CreditcardChecker {
     return digit;
   }
 
-  public static int[] getDigits(String number) {
+  private static int[] getDigits(String number) {
     int[] digits = new int[number.length()];
 
     for (int i = 0; i < digits.length; i++) {
@@ -99,7 +99,7 @@ public class CreditcardChecker {
     return digits;
   }
 
-  public static String getIssuer(String number) {
+  private static String getIssuer(String number) {
     
     //Visa has all 4XXXXXX...
     String first1 = number.substring(0,1);
