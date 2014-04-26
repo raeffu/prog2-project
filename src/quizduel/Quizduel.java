@@ -1,19 +1,8 @@
 package quizduel;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 /**
  * @author raeffu
@@ -274,52 +263,11 @@ public class Quizduel extends Printable {
   /**
    * 
    * Load questions from XML file.
-   * Answers are randomized here.
+   * See Question class.
    * 
    */
   private void loadQuestions() {
-    File xml = new File("questions.xml");
-    DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-
-    try {
-      DocumentBuilder builder = factory.newDocumentBuilder();
-
-      Document doc = builder.parse(xml);
-
-      NodeList questionList = doc.getElementsByTagName("question");
-
-      for (int i = 0; i < questionList.getLength(); i++) {
-        Element questionElement = (Element) questionList.item(i); // <question>
-                                                                  // element
-
-        // Get the child elements <text> of <question>, only one
-        NodeList textNodes = questionElement.getElementsByTagName("text");
-        Element textElement = (Element) textNodes.item(0);
-
-        ArrayList<Answer> answers = new ArrayList<Answer>();
-
-        // Get the child elements <answer> of <question>, one or more
-        NodeList answerNodes = questionElement.getElementsByTagName("answer");
-        for (int j = 0; j < answerNodes.getLength(); j++) {
-          Element answerElement = (Element) answerNodes.item(j);
-          boolean isCorrect = answerElement.getAttribute("correct").equals(
-              "true") ? true : false;
-
-          answers.add(new Answer(answerElement.getTextContent(), isCorrect));
-        }
-        
-        // Randomize order of answers
-        Collections.shuffle(answers);
-        _questions.add(new Question(textElement.getTextContent(), answers));
-      }
-
-    } catch (ParserConfigurationException e) {
-      e.printStackTrace();
-    } catch (SAXException e) {
-      e.printStackTrace();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+    _questions = Question.loadQuestions();
   }
 
 }
