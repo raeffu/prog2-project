@@ -28,6 +28,6 @@
 
 
     <complexType name="AnswerType" mixed="true">
-    	<attribute name="correct" type="string"></attribute>
+    	<attribute name="correct" type="boolean"></attribute>
     </complexType>
 </schema>
