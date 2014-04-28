@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<questions>
+<tns:questions xmlns:tns="http://www.example.org/questions/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.example.org/questions/ questions.xsd ">
 	<question>
 		<text>Wie heisst die neuste iPhone Generation?</text>
 		<answers>
@@ -18,148 +20,150 @@
 			<answer correct="false">2048</answer>
 		</answers>
 	</question>
-  <question>
-    <text>Wie heisst der Regisseur von Pulp Fiction?</text>
-    <answers>
-      <answer correct="true">Quentin Tarantino</answer>
-      <answer correct="false">Steven Spielberg</answer>
-      <answer correct="false">Alfred Hitchcock</answer>
-      <answer correct="false">Roberto Rodriguez</answer>
-    </answers>
-  </question>
-  <question>
-    <text>Wie heisst die Hauptstadt der Schweiz?</text>
-    <answers>
-      <answer correct="true">Bern</answer>
-      <answer correct="false">Freiburg</answer>
-      <answer correct="false">Zürich</answer>
-      <answer correct="false">Genf</answer>
-    </answers>
-  </question>
-  <question>
-    <text>Was ist Pommes-Rot-Weiss?</text>
-    <answers>
-      <answer correct="true">Pommes Frites mit Ketchup und Mayonaisse</answer>
-      <answer correct="false">Pommes Frites mit Ketchup und Joghurt</answer>
-      <answer correct="false">Kartoffeln mit Johanissberen und Blumenkohl</answer>
-      <answer correct="false">Gibt es nicht!</answer>
-    </answers>
-  </question>
-  <question>
-    <text>Wie viel ist 3+5*6-8</text>
-    <answers>
-      <answer correct="true">25</answer>
-      <answer correct="false">26</answer>
-      <answer correct="false">24</answer>
-      <answer correct="false">21</answer>
-    </answers>
-  </question>
-  <question>
-    <text>Welche Staffel von Game Of Thrones hat kürzlich begonnen</text>
-    <answers>
-      <answer correct="true">4</answer>
-      <answer correct="false">3</answer>
-      <answer correct="false">5</answer>
-      <answer correct="false">2</answer>
-    </answers>
-  </question>
-  <question>
-    <text>Wie gross ist der Erdumfang in etwa (in km)?</text>
-    <answers>
-      <answer correct="true">40000</answer>
-      <answer correct="false">50000</answer>
-      <answer correct="false">25000</answer>
-      <answer correct="false">120000</answer>
-    </answers>
-  </question>
-  <question>
-    <text>Wie hiess Einstein mit Vornamen?</text>
-    <answers>
-      <answer correct="true">Albert</answer>
-      <answer correct="false">Peter</answer>
-      <answer correct="false">Hans</answer>
-      <answer correct="false">Martha</answer>
-    </answers>
-  </question>
-  <question>
-    <text>Für was steht BFH?</text>
-    <answers>
-      <answer correct="true">Berner Fachhochschule</answer>
-      <answer correct="false">Berner Frauenhaus</answer>
-      <answer correct="false">BMW Freunde Hamburg</answer>
-      <answer correct="false">Bäume, Flüsse, Hamster</answer>
-    </answers>
-  </question>
-  <question>
-    <text>Was ist H20?</text>
-    <answers>
-      <answer correct="true">Wasser</answer>
-      <answer correct="false">Sauerstoff</answer>
-      <answer correct="false">Salz</answer>
-      <answer correct="false">Stein</answer>
-    </answers>
-  </question>
-  <question>
-    <text>Um was geht es in der Serie Breaking Bad</text>
-    <answers>
-      <answer correct="true">Drogen</answer>
-      <answer correct="false">Hochzeit</answer>
-      <answer correct="false">Tanzen</answer>
-      <answer correct="false">Informatik</answer>
-    </answers>
-  </question>
-  <question>
-    <text>Wer singt Highway To Hell?</text>
-    <answers>
-      <answer correct="true">ACDC</answer>
-      <answer correct="false">The Rolling Stones</answer>
-      <answer correct="false">Ramstein</answer>
-      <answer correct="false">Justin Beaber</answer>
-    </answers>
-  </question>
-  <question>
-    <text>Von welchem Gemüse behauptet man, es verhilft zu besserer Sicht?</text>
-    <answers>
-      <answer correct="true">Karotte</answer>
-      <answer correct="false">Kartoffel</answer>
-      <answer correct="false">Kohl</answer>
-      <answer correct="false">Tomate</answer>
-    </answers>
-  </question>
-  <question>
-    <text>Wie wird die Lichtempfindlichkeit bei Kameras auch genannt?</text>
-    <answers>
-      <answer correct="true">ISO</answer>
-      <answer correct="false">OSI</answer>
-      <answer correct="false">Blende</answer>
-      <answer correct="false">Sucher</answer>
-    </answers>
-  </question>
-  <question>
-    <text>Welche Firma stellt das iPhone her?</text>
-    <answers>
-      <answer correct="true">Apple</answer>
-      <answer correct="false">Samsung</answer>
-      <answer correct="false">Google</answer>
-      <answer correct="false">Microsoft</answer>
-    </answers>
-  </question>
-  <question>
-    <text>Wie heisst das Handybetriebssystem von Google?</text>
-    <answers>
-      <answer correct="true">Android</answer>
-      <answer correct="false">Google Mobile</answer>
-      <answer correct="false">Moogle</answer>
-      <answer correct="false">Robot</answer>
-    </answers>
-  </question>
-  <question>
-    <text>Wo geht die Sonne auf?</text>
-    <answers>
-      <answer correct="true">Osten</answer>
-      <answer correct="false">Westen</answer>
-      <answer correct="false">Süden</answer>
-      <answer correct="false">Norden</answer>
-    </answers>
-  </question>
-</questions>
+	<question>
+		<text>Wie heisst der Regisseur von Pulp Fiction?</text>
+		<answers>
+			<answer correct="true">Quentin Tarantino</answer>
+			<answer correct="false">Steven Spielberg</answer>
+			<answer correct="false">Alfred Hitchcock</answer>
+			<answer correct="false">Roberto Rodriguez</answer>
+		</answers>
+	</question>
+	<question>
+		<text>Wie heisst die Hauptstadt der Schweiz?</text>
+		<answers>
+			<answer correct="true">Bern</answer>
+			<answer correct="false">Freiburg</answer>
+			<answer correct="false">Zürich</answer>
+			<answer correct="false">Genf</answer>
+		</answers>
+	</question>
+	<question>
+		<text>Was ist Pommes-Rot-Weiss?</text>
+		<answers>
+			<answer correct="true">Pommes Frites mit Ketchup und Mayonaisse
+			</answer>
+			<answer correct="false">Pommes Frites mit Ketchup und Joghurt</answer>
+			<answer correct="false">Kartoffeln mit Johanissberen und Blumenkohl
+			</answer>
+			<answer correct="false">Gibt es nicht!</answer>
+		</answers>
+	</question>
+	<question>
+		<text>Wie viel ist 3+5*6-8</text>
+		<answers>
+			<answer correct="true">25</answer>
+			<answer correct="false">26</answer>
+			<answer correct="false">24</answer>
+			<answer correct="false">21</answer>
+		</answers>
+	</question>
+	<question>
+		<text>Welche Staffel von Game Of Thrones hat kürzlich begonnen</text>
+		<answers>
+			<answer correct="true">4</answer>
+			<answer correct="false">3</answer>
+			<answer correct="false">5</answer>
+			<answer correct="false">2</answer>
+		</answers>
+	</question>
+	<question>
+		<text>Wie gross ist der Erdumfang in etwa (in km)?</text>
+		<answers>
+			<answer correct="true">40000</answer>
+			<answer correct="false">50000</answer>
+			<answer correct="false">25000</answer>
+			<answer correct="false">120000</answer>
+		</answers>
+	</question>
+	<question>
+		<text>Wie hiess Einstein mit Vornamen?</text>
+		<answers>
+			<answer correct="true">Albert</answer>
+			<answer correct="false">Peter</answer>
+			<answer correct="false">Hans</answer>
+			<answer correct="false">Martha</answer>
+		</answers>
+	</question>
+	<question>
+		<text>Für was steht BFH?</text>
+		<answers>
+			<answer correct="true">Berner Fachhochschule</answer>
+			<answer correct="false">Berner Frauenhaus</answer>
+			<answer correct="false">BMW Freunde Hamburg</answer>
+			<answer correct="false">Bäume, Flüsse, Hamster</answer>
+		</answers>
+	</question>
+	<question>
+		<text>Was ist H20?</text>
+		<answers>
+			<answer correct="true">Wasser</answer>
+			<answer correct="false">Sauerstoff</answer>
+			<answer correct="false">Salz</answer>
+			<answer correct="false">Stein</answer>
+		</answers>
+	</question>
+	<question>
+		<text>Um was geht es in der Serie Breaking Bad</text>
+		<answers>
+			<answer correct="true">Drogen</answer>
+			<answer correct="false">Hochzeit</answer>
+			<answer correct="false">Tanzen</answer>
+			<answer correct="false">Informatik</answer>
+		</answers>
+	</question>
+	<question>
+		<text>Wer singt Highway To Hell?</text>
+		<answers>
+			<answer correct="true">ACDC</answer>
+			<answer correct="false">The Rolling Stones</answer>
+			<answer correct="false">Ramstein</answer>
+			<answer correct="false">Justin Beaber</answer>
+		</answers>
+	</question>
+	<question>
+		<text>Von welchem Gemüse behauptet man, es verhilft zu besserer Sicht?</text>
+		<answers>
+			<answer correct="true">Karotte</answer>
+			<answer correct="false">Kartoffel</answer>
+			<answer correct="false">Kohl</answer>
+			<answer correct="false">Tomate</answer>
+		</answers>
+	</question>
+	<question>
+		<text>Wie wird die Lichtempfindlichkeit bei Kameras auch genannt?</text>
+		<answers>
+			<answer correct="true">ISO</answer>
+			<answer correct="false">OSI</answer>
+			<answer correct="false">Blende</answer>
+			<answer correct="false">Sucher</answer>
+		</answers>
+	</question>
+	<question>
+		<text>Welche Firma stellt das iPhone her?</text>
+		<answers>
+			<answer correct="true">Apple</answer>
+			<answer correct="false">Samsung</answer>
+			<answer correct="false">Google</answer>
+			<answer correct="false">Microsoft</answer>
+		</answers>
+	</question>
+	<question>
+		<text>Wie heisst das Handybetriebssystem von Google?</text>
+		<answers>
+			<answer correct="true">Android</answer>
+			<answer correct="false">Google Mobile</answer>
+			<answer correct="false">Moogle</answer>
+			<answer correct="false">Robot</answer>
+		</answers>
+	</question>
+	<question>
+		<text>Wo geht die Sonne auf?</text>
+		<answers>
+			<answer correct="true">Osten</answer>
+			<answer correct="false">Westen</answer>
+			<answer correct="false">Süden</answer>
+			<answer correct="false">Norden</answer>
+		</answers>
+	</question>
+</tns:questions>

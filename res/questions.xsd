@@ -19,11 +19,15 @@
 
     <complexType name="AnswersType">
     	<sequence>
-    		<element name="answer" type="string" maxOccurs="unbounded" minOccurs="1"></element>
+    		<element name="answer" type="tns:AnswerType" maxOccurs="unbounded" minOccurs="1"></element>
     	</sequence>
     </complexType>
 
 
 
 
+
+    <complexType name="AnswerType" mixed="true">
+    	<attribute name="correct" type="string"></attribute>
+    </complexType>
 </schema>
