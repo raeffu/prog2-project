@@ -48,8 +48,7 @@ public class CreditcardChecker {
       return false;
     }
     
-    //Get all numbers for checksum validation, ignore check digit, e.g. last digit
-    int[] digits = getDigits(input.substring(0, input.length()-1));
+    int[] digits = getDigits(input);
     //Get last digit of creditcard number
     int checkDigit = Integer.parseInt(input.substring(input.length()-1, input.length()));
     
@@ -63,12 +62,12 @@ public class CreditcardChecker {
   private static boolean validateCheckSum(int[] digits, int checkDigit) {
     int checksum = 0;
 
-    for (int i = 0; i < digits.length; i++) {
+    for (int i = 1; i < digits.length; i++) {
 
-      // forward loop but start with rightmost digit
+      // forward loop but start with 2nd rightmost digit
       int digit = digits[digits.length - 1 - i];
 
-      if (i % 2 == 0) {
+      if (i % 2 != 0) {
         digit *= 2;
       }
 
