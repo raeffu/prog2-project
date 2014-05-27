@@ -229,7 +229,7 @@ public class Quizduel extends Printable {
       return null;
     }
     
-    // Randomize order of questions
+    // Everyday I'm shuffling
     Collections.shuffle(_questions);
     
     // Add first 18 or needed amount of questions

@@ -96,7 +96,7 @@ public class Question {
           answers.add(new Answer(answerElement.getTextContent(), isCorrect));
         }
         
-        // Randomize order of answers
+        // Everyday I'm shuffling
         Collections.shuffle(answers);
         questions.add(new Question(textElement.getTextContent(), answers));
       }
